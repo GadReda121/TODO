@@ -5,7 +5,7 @@
             <small>{{ currentTime }}</small>
         </div>
         <div class="btns d-flex">
-            <button class="btn btn-success w-100" @click="DoneTask">&#10003;</button>
+            <button class="btn btn-successs w-100" @click="DoneTask">&#10003;</button>
             <button class="btn btn-danger w-100" @click="removeTask">×</button>
         </div>
     </div>
@@ -24,6 +24,7 @@ export default {
     methods: {
         DoneTask() {
             document.querySelector("#task").classList.add("effectDone");
+            document.querySelector(".text").classList.add("effectDoneTask");
         },
         removeTask() {
             this.show = false;
@@ -51,16 +52,21 @@ export default {
     button{
         height: 90px;
     }
-    .btn-success{
+    .btn-successs{
         background-color: var(--primary-color);
         border: 1px solid var(--primary-color);
+        color:#fff;
     }
-    .btn-success:hover, .btn-success:focus{
+    .btn-successs:active, .btn-successs:hover{
         background-color: var(--primary-color);
         border: 1px solid var(--primary-color);
+        color:#fff;
     }
     .effectDone{
         text-decoration:line-through;
+    }
+    .effectDoneTask{
+        background-color: #d6d6d6 !important;
     }
     p{
         overflow-wrap: anywhere;
