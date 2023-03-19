@@ -10,6 +10,7 @@
         <div class="d-flex justify-content-center gap-3 mt-3">
             <ClearAll @click="ClearAll"/>
         </div>
+        <p class="todos"></p>
     </div>
 </template>
 
@@ -27,7 +28,7 @@ export default {
             Task: [
                 {
                     id: Math.random(),
-                    text:"I'll do Something..."
+                    text: "I'll do Something..."
                 }
             ],
         }
@@ -45,10 +46,11 @@ export default {
         };
 
         var bubblyButtons = document.getElementsByClassName("bubbly-button");
-
+        
         for (var i = 0; i < bubblyButtons.length; i++) {
             bubblyButtons[i].addEventListener('click', animateButton, false);
         }
+        this.getValue();
     },
     methods: {
         addTask() {
@@ -59,7 +61,8 @@ export default {
                     id:  Math.floor(Math.random() * 100),
                     text: this.TaskName
                 });
-                this.Task.reverse();
+                this.Task.sort();
+                this.store();
             }
             this.TaskName = "";
             Swal.fire({
@@ -70,7 +73,20 @@ export default {
                 hideClass: {
                     popup: 'animate__animated animate__fadeOutUp'
                 }
-            })
+            });
+        },
+        store() {
+            window.localStorage.setItem("todo", JSON.stringify(this.Taskcs))
+        },
+        getValue() {
+            let todos = JSON.parse(localStorage.getItem("todo"))
+            let todoList = document.querySelector(".todos")
+            todos.forEach(todo => {
+                let li = document.createElement("li")
+                li.innerText = todo
+                todoList.appendChild(li)
+                this.Task.push(li)
+            });
         },
         ClearAll() {
             if (this.Task.length == 0) {
